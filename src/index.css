@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+*html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+h1.ce-header {
+  @apply text-3xl font-bold;
+}
+h2.ce-header {
+  @apply text-2xl font-semibold;
+}
+h3.ce-header {
+  @apply text-xl font-semibold;
+}
+h4.ce-header {
+  @apply text-lg font-semibold;
+}
+h5.ce-header {
+  @apply text-base font-semibold;
+}
+h6.ce-header {
+  @apply text-base font-semibold;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, "Open Sans",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nav-glassmorphism {
+  background: rgba(17, 29, 70, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.blue-glassmorphism {
+  background: rgba(17, 29, 70, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.card-glassmorphism {
+  background: rgba(77, 101, 146, 0.425);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px #0b1110e1;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid #05f7ff60;
+}
+
+/* white glassmorphism */
+.white-glassmorphism {
+  background: rgb(165, 154, 154);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(192, 188, 188, 0.3);
+}
+
+.text-gradient {
+  background-color: #fff;
+  background-image: radial-gradient(
+      at 4% 36%,
+      hsla(0, 0%, 100%, 1) 0,
+      transparent 53%
+    ),
+    radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.insetshadow {
+  color: #202020;
+  background-color: #222328;
+  letter-spacing: 0.1em;
+  text-shadow: -1px -1px 1px #86a5e9d8, 2px 2px 1px #2a2a2b;
+}
+
+/* Define colors for the gradient */
+:root {
+  --slate-900: #1f2937;
+}
+
+/* Add the gradient to the scrollbar */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--slate-900) 0%,
+    var(--slate-900) 50%,
+    #000000 100%
+  );
+}
+
+/* Hide the scrollbar track */
+.custom-scroll::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Set the width of the scrollbar */
+.custom-scroll::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+/* Add a border-radius to the scrollbar thumb */
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 1em;
+}
+
+/* For Firefox */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+::selection {
+  background: #00a1ff;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
