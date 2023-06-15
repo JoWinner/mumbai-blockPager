@@ -23,7 +23,7 @@ const Footer = () => {
         <div className="flex flex-col ">
           <div className="flex my-12  justify-between">
             <div className="">
-              <img src={pagerLogo} className="w-24 h-24" />
+              <img src={pagerLogo} className="w-14 h-14 md:w-24 md:h-24" />
             </div>
             <div className="flex flex-1  justify-between flex-col md:justify-between md:flex-row gap-10">
               <div className="flex flex-1 flex-row space-x-8 items-center justify-evenly font-medium uppercase">

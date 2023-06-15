@@ -24,10 +24,11 @@ export const formatNumViews = (numViews) => {
   }
 };
 
-// Create a new instance of ethers.providers.JsonRpcProvider with the Infura URL
+// Create a new instance of ethers.providers.JsonRpcProvider with the Infura/alchemy URL
 
 export const provider = new ethers.providers.JsonRpcProvider(
   import.meta.env.VITE_ALCHEMY_MUMBAI_URL
+  // import.meta.env.VITE_LOCALHOST_URL
 );
 
 // Create a new instance of ethers.Contract using the provider

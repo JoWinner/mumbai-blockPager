@@ -153,7 +153,7 @@ const Connect = () => {
 
   return (
     <div className="bg-gradient-to-bl from-neutral-800 via-sky-700 to-current">
-      <div className="mx-auto px-3 xs:w-11/12 md:w-1/2 pt-10 min-h-screen  ">
+      <div className="mx-auto px-3 w-11/12 md:w-1/2 pt-10 min-h-screen  ">
         <div className="bg-[#fff9f9] shadow-card hover:shadow-cardhover transition-colors duration-500 rounded ">
           <div className="border-b text-center">
             <h2 className="md:text-3xl xs:text-2xl p-3 uppercase insetshadow ">
@@ -162,7 +162,7 @@ const Connect = () => {
           </div>
           <div
             id="editorjs"
-            className="overflow-y-auto h-80 p-8 custom-scroll overflow-x-hidden"
+            className="overflow-y-auto h-80 py-8 px-16 custom-scroll overflow-x-hidden"
           ></div>
           <div className="flex p-2 justify-center border-t  border-black">
             {walletAddress && walletAddress.length > 0 ? (

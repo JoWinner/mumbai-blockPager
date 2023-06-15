@@ -90,7 +90,7 @@ const Navbar = () => {
       <nav className=" flex justify-between items-center w-[92%] mx-auto  ">
         <div>
           <Link to="/">
-            <img src={pagerLogo} className="w-14 h-14 cursor-pointer" />
+            <img src={pagerLogo} className="w-10 h-10 md:w-14 md:h-14 cursor-pointer" />
           </Link>
         </div>
 

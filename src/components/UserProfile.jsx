@@ -104,7 +104,7 @@ const UserProfile = ({ profile,pic }) => {
               className="text-indigo-500 py-2 px-4  font-medium mt-4"
               onClick={handleShowMore}
             >
-              {showMore ? "<Show less" : "Show more"}
+              {showMore ? "Show less" : "Show more"}
             </button>
           </div>
         </div>
