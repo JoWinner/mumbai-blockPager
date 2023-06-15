@@ -290,7 +290,7 @@ const PrivateEditor = () => {
 
   return (
     <div className="mx-auto xs:w-11/12 md:w-5/6 min-h-full">
-      <div className="bg-[#fffafa] shadow-card hover:shadow-cardhover transition-colors duration-500 rounded my-72">
+      <div className="bg-[#fffafa] shadow-card hover:shadow-cardhover transition-colors duration-500 rounded mt-36 mb-64">
         <div className="border-b text-center">
           <h2 className="md:text-3xl xs:text-2xl p-3 uppercase insetshadow ">
             Private Editor
