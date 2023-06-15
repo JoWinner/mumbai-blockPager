@@ -58,10 +58,10 @@ const PublicEditor = () => {
     }
 
     // Validate price
-    if (!price.trim()) {
+    if (!price) {
       errors.price = "*Price is required";
-    } else if (Number(price) < 1) {
-      errors.price = "*Price is invalid( > 1)";
+    } else if (Number(price) < 0.06) {
+      errors.price = "*Price is invalid(It must be > 0.05)";
     }
 
     // Validate category
