@@ -163,9 +163,14 @@ const Table = ({ heading, publishedPagers }) => {
                         <tr key={index}>
                           <td className="p-2 whitespace-normal">
                             <div className="flex  flex-col gap-2">
-                              <div className="font-semibold text-sm leading-4 text-gray-dark">
-                                {content?.creator}
-                              </div>
+                              <h2 className="font-semibold text-sm leading-4 text-gray-dark  hover:underline transitions-all duration-500">
+                                <Link
+                                  to={`/creator/${content.id}/${content.creatorAddress}/${content.creator}`}
+                                  state={{ content: content }}
+                                >
+                                  {content?.creator}
+                                </Link>
+                              </h2>
                               <div className="w-16 h-16 ">
                                 <img
                                   className="rounded-md w-16 h-12 object-cover"
