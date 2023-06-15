@@ -6,7 +6,6 @@ import timezone from "dayjs/plugin/timezone";
 import axios from "axios";
 import { ethers } from "ethers";
 import { contractABI, blockPagerAddress } from "../utils/constants";
-import { useNavigate } from "react-router-dom";
 
 // Enable relative time plugin
 dayjs.extend(utc);
