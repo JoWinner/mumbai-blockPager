@@ -40,7 +40,7 @@ const Table = ({ heading, publishedPagers }) => {
   quickSort(sortedPublishedPagers, 0, sortedPublishedPagers.length - 1);
 
   const firstSection = sortedPublishedPagers.slice(0, 5);
-  const secondSection = sortedPublishedPagers.slice(5);
+  const secondSection = sortedPublishedPagers.slice(5,10);
 
   return (
     <div className="my-16">
