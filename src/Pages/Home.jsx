@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  getContents,
-  provideContract,
-} from "../constants/ContentFetch";
+import { getContents, provideContract } from "../constants/ContentFetch";
 
 import {
   FeaturedSection2,
@@ -30,7 +27,9 @@ const Home = () => {
 
   async function loadFeaturedPagers() {
     const featuredData = await provideContract.fetchFeaturedItems();
-    const contents = await getContents(featuredData, setUserData);
+    const contents = await Promise.all([
+      getContents(featuredData, setUserData),
+    ]);
     const randomIndex1 = Math.floor(Math.random() * contents.length);
     const randomIndex2 = Math.floor(Math.random() * contents.length);
     const featuredPager1 = contents[randomIndex1];
@@ -47,11 +46,11 @@ const Home = () => {
 
   async function loadPublishedPagers() {
     const publishedData = await provideContract.fetchAllContents();
-    const contents = await getContents(publishedData, setUserData);
+    const contents = await Promise.all([
+      getContents(publishedData, setUserData),
+    ]);
     setPublishedPagers(contents);
   }
-
-
 
   return (
     <div>
