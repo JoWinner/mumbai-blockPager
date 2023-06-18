@@ -27,7 +27,7 @@ export const formatNumViews = (numViews) => {
 
 export const provider = new ethers.providers.JsonRpcProvider(
   import.meta.env.VITE_ALCHEMY_MUMBAI_URL
-  
+
   // import.meta.env.VITE_LOCALHOST_URL
 );
 
@@ -51,7 +51,7 @@ export const getCurrentWalletConnected = async () => {
         walletAddress = accounts[0];
       } else {
         walletAddress = "";
-        
+
         // console.log("Connect to MetaMask using the Connect button");
       }
     } catch (error) {
@@ -94,12 +94,9 @@ export const connectToMetamask = async () => {
 };
 export const signContract = await connectToMetamask();
 
-
 // Provider to functions and calls to Contract
 export const getContents = async (data, setUserData) => {
-  const contents = [];
-
-  for (const i of data) {
+  const promises = data.map(async (i) => {
     const tokenUri = await provideContract.tokenURI(i.tokenId);
     const meta = await axios.get(tokenUri);
     const price = ethers.utils.formatUnits(i.price.toString(), "ether");
@@ -149,19 +146,17 @@ export const getContents = async (data, setUserData) => {
       tokenUri,
     };
 
-    contents.push(content);
-  }
+    return content;
+  });
 
-  return contents;
+  return Promise.all(promises);
 };
 
 // Signer functions and calls to contract
 export const getUserContents = async (data, setUserData) => {
   const signContract = await connectToMetamask();
   if (signContract) {
-    const contents = [];
-
-    for (const i of data) {
+    const promises = data.map(async (i) => {
       const tokenUri = await signContract.tokenURI(i.tokenId);
       const meta = await axios.get(tokenUri);
       const price = ethers.utils.formatUnits(i.price.toString(), "ether");
@@ -199,14 +194,12 @@ export const getUserContents = async (data, setUserData) => {
         tokenUri,
       };
 
-      contents.push(content);
-    }
+      return content;
+    });
 
-    return contents;
+    return Promise.all(promises);
   }
-  return [];
 };
-
 export const getUserProfile = async () => {
   const [accountCID, userWallet, userIdNum, exists] =
     await signContract.getUserAccount();
