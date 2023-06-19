@@ -39,7 +39,6 @@ export default defineConfig({
     alias: {
       process: "process/browser",
     },
-    dedupe: [...globalVendorPackages],
   },
   // server: {
   //   host: true,
