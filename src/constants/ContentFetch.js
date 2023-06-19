@@ -200,56 +200,81 @@ export const getUserContents = async (data, setUserData) => {
     return Promise.all(promises);
   }
 };
-export const getUserProfile = async () => {
-  const [accountCID, userWallet, userIdNum, exists] =
-    await signContract.getUserAccount();
 
-  if (!exists) {
-    return;
-  }
 
-  // Get the user data from IPFS
-  const response = await axios.get(accountCID);
-  const userProfile = response.data;
+export const getUserProfile = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const [accountCID, userWallet, userIdNum, exists] =
+        await signContract.getUserAccount();
 
-  const profile = {
-    name: userProfile.name,
-    email: userProfile.email,
-    link: userProfile.link,
-    bio: userProfile.bio,
-    userWallet: userWallet,
-    userIdNum: userIdNum.toNumber(),
-  };
+      if (!exists) {
+        resolve();
+        return;
+      }
 
-  return profile;
+      const response = await axios.get(accountCID);
+      const userProfile = response.data;
+
+      const profile = {
+        name: userProfile.name,
+        email: userProfile.email,
+        link: userProfile.link,
+        bio: userProfile.bio,
+        userWallet: userWallet,
+        userIdNum: userIdNum.toNumber(),
+      };
+
+      resolve(profile);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
-export const getUserPicture = async () => {
-  const pictureCID = await signContract.getPicture();
+export const getUserPicture = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const pictureCID = await signContract.getPicture();
+      const response = await axios.get(pictureCID);
 
-  // Get the picture data from IPFS
-  const response = await axios.get(pictureCID);
+      const userPicture = response.data;
+      const picture = userPicture.image;
 
-  const userPicture = response.data;
-  const picture = userPicture.image;
-
-  return picture;
+      resolve(picture);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
-export const getUserStats = async () => {
-  const [accountCID, userWallet, userIdNum, exists] =
-    await signContract.getUserAccount();
+export const getUserStats = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const [accountCID, userWallet, userIdNum, exists] =
+        await signContract.getUserAccount();
 
-  if (!exists) {
-    return;
-  }
+      if (!exists) {
+        resolve();
+        return;
+      }
 
-  const [numPublicItems, totalViews, totalEarnings] =
-    await signContract.getUserStats(userWallet);
+      const [numPublicItems, totalViews, totalEarnings] =
+        await signContract.getUserStats(userWallet);
 
-  return {
-    numPublicItems: numPublicItems.toNumber(),
-    totalViews: totalViews.toNumber(),
-    totalEarnings: ethers.utils.formatUnits(totalEarnings.toString(), "ether"),
-  };
+      const stats = {
+        numPublicItems: numPublicItems.toNumber(),
+        totalViews: totalViews.toNumber(),
+        totalEarnings: ethers.utils.formatUnits(
+          totalEarnings.toString(),
+          "ether"
+        ),
+      };
+
+      resolve(stats);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
+
