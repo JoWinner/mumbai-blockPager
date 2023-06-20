@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { HiMenu, HiExclamation } from "react-icons/hi";
 import { signContract } from "../constants/ContentFetch";
-import { PagerActions, Modal, ReadPrivate } from "../components";
+import { PagerActions, Modal } from "../components";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+const ReadPrivate = lazy(() => import("../components/ReadPrivate"));
 
 const Sidebar = ({ pagers }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -23,19 +25,18 @@ const Sidebar = ({ pagers }) => {
         title: "",
         content: null,
       });
-      
-        let content = await signContract.readContent(selectedPager.id);
-        content = await signContract.tokenURI(selectedPager.id);
-        const meta = await axios.get(content);
 
-        const data = {
-          title: meta.data.title,
-          editorData: meta.data.editorData,
-        };
+      let content = await signContract.readContent(selectedPager.id);
+      content = await signContract.tokenURI(selectedPager.id);
+      const meta = await axios.get(content);
 
-        setUserPage(data);
-        toast.success("Signing confirmed. Loading pager!");
-      
+      const data = {
+        title: meta.data.title,
+        editorData: meta.data.editorData,
+      };
+
+      setUserPage(data);
+      toast.success("Signing confirmed. Loading pager!");
     } catch (error) {
       const errorMessage =
         error.reason || "Pager is burning! Maximum(6) reads reached";
@@ -57,8 +58,9 @@ const Sidebar = ({ pagers }) => {
           </h1>
 
           <span className="text-sm text-orange-500 flex ">
-            <HiExclamation className="text-yellow-400 text-2xl mr-2" /> Every
-            pager has 6 maximum reads. It has been read {pager?.numReads}/6.
+            <HiExclamation className="text-yellow-400 text-2xl mr-2" /> This
+            pager has {pager?.maxReads} maximum reads. It has been read{" "}
+            {pager?.numReads}/{pager?.maxReads}.
           </span>
         </>
       ),
@@ -96,8 +98,8 @@ const Sidebar = ({ pagers }) => {
             Transfer: {pager?.numTransfers}
           </p>
           <span className="text-sm text-orange-500 flex flex-row  items-center">
-            <HiExclamation className="text-yellow-400 text-2xl mr-1" />6 Maximum
-            reads and only 1 transfer allowed
+            <HiExclamation className="text-yellow-400 text-2xl mr-1" />
+            {pager?.maxReads} maximum reads and only 1 transfer allowed.
           </span>
         </>
       ),
@@ -106,21 +108,19 @@ const Sidebar = ({ pagers }) => {
 
   const handleBurn = async () => {
     try {
-      
-        await signContract.burnContent(selectedPager.id);
-        setModalConfig({
-          isOpen: false,
-          title: "",
-          content: null,
-        });
-        toast.success("Signing confirmed. Burning pager!");
-    
+      await signContract.burnContent(selectedPager.id);
+      setModalConfig({
+        isOpen: false,
+        title: "",
+        content: null,
+      });
+      toast.success("Signing confirmed. Burning pager!");
     } catch (error) {
       const errorMessage =
         "Only owner can burn this pager or pager already burned!" ||
         error.reason;
       toast.error(errorMessage); // Error message
-       console.error(error);
+      console.error(error);
     }
   };
   const burnModal = async (pager) => {
@@ -148,21 +148,20 @@ const Sidebar = ({ pagers }) => {
     try {
       const addressField = document.getElementById("address");
       const recipient = addressField.value;
-    
-        await signContract.transferContent(recipient, selectedPager.id);
-        setModalConfig({
-          isOpen: false,
-          title: "",
-          content: null,
-        });
-        toast.success("Signing confirmed. Transferring pager!");
-      
+
+      await signContract.transferContent(recipient, selectedPager.id);
+      setModalConfig({
+        isOpen: false,
+        title: "",
+        content: null,
+      });
+      toast.success("Signing confirmed. Transferring pager!");
     } catch (error) {
       const errorMessage =
         "You cannot transfer this pager. Transfer is only once!" ||
         error.reason;
       toast.error(errorMessage);
-       console.error(error);
+      console.error(error);
     }
   };
 

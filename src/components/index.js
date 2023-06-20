@@ -17,3 +17,5 @@ export { default as CategoryTab } from "./CategoryTab";
 export { default as Categories } from "./Categories";
 export { default as ReadPrivate } from "./ReadPrivate";
 export { default as Table } from "./Table";
+export { default as ErrorFallback } from "./ErrorFallback";
+export { default as Loader } from "./Loader";

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
 import axios from "axios";
 import { HiEye, HiArrowLeft } from "react-icons/hi";
