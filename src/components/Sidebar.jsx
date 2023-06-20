@@ -1,11 +1,10 @@
-import { useState, lazy } from "react";
+import { useState } from "react";
 import { HiMenu, HiExclamation } from "react-icons/hi";
 import { signContract } from "../constants/ContentFetch";
-import { PagerActions, Modal } from "../components";
+import { PagerActions, Modal, ReadPrivate } from "../components";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ReadPrivate = lazy(() => import("../components/ReadPrivate"));
 
 const Sidebar = ({ pagers }) => {
   const [isOpen, setIsOpen] = useState(true);

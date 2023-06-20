@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { polygonToken1, polygonToken2 } from "../../images";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";

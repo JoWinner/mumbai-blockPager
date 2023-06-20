@@ -1,14 +1,15 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getContents, provideContract } from "../constants/ContentFetch";
 
-import { Loader } from "../components";
-
-const PublishedCard = lazy(() => import("../components/PublishedCard"));
-const CategoryTab = lazy(() => import("../components/CategoryTab"));
-const Carousel = lazy(() => import("../components/Carousel"));
-const Table = lazy(() => import("../components/Table"));
-const HorizontalCard = lazy(() => import("../components/HorizontalCard"));
+import {
+  PublishedCard,
+  CategoryTab,
+  Carousel,
+  Table,
+  HorizontalCard,
+  Loader,
+} from "../components";
 
 const CategoryPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,23 +64,21 @@ const CategoryPage = () => {
 
   return (
     <div>
-      <Suspense fallback={<Loader />}>
-        <HorizontalCard
-          featuredPagers={featuredPagers}
-          heading={horizCardHeading}
-        />
-        <Table publishedPagers={publishedPagers} heading={tableHeading} />
-        <Carousel slides={featuredPagers} />
-        <PublishedCard
-          publishedPagers={publishedPagers}
-          heading={catCardHeading}
-        />
-        <CategoryTab publishedPagers={noCategoryPagers} />
-        <PublishedCard
-          publishedPagers={noCategoryPagers}
-          heading={publishedCardHeading}
-        />
-      </Suspense>
+      <HorizontalCard
+        featuredPagers={featuredPagers}
+        heading={horizCardHeading}
+      />
+      <Table publishedPagers={publishedPagers} heading={tableHeading} />
+      <Carousel slides={featuredPagers} />
+      <PublishedCard
+        publishedPagers={publishedPagers}
+        heading={catCardHeading}
+      />
+      <CategoryTab publishedPagers={noCategoryPagers} />
+      <PublishedCard
+        publishedPagers={noCategoryPagers}
+        heading={publishedCardHeading}
+      />
     </div>
   );
 };

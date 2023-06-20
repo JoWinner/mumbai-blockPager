@@ -1,14 +1,15 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { getContents, provideContract } from "../constants/ContentFetch";
 
-import { Loader } from "../components";
-
-const Categories = lazy(() => import("../components/Categories"));
-const FeaturedSection1 = lazy(() => import("../components/FeaturedSection1"));
-const FeaturedSection2 = lazy(() => import("../components/FeaturedSection2"));
-const Table = lazy(() => import("../components/Table"));
-const PublishedCard = lazy(() => import("../components/PublishedCard"));
-const CategoryTab = lazy(() => import("../components/CategoryTab"));
+import {
+  Categories,
+  FeaturedSection1,
+  FeaturedSection2,
+  Table,
+  PublishedCard,
+  CategoryTab,
+  Loader,
+} from "../components";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,25 +61,23 @@ const Home = () => {
 
   return (
     <div>
-      <Suspense fallback={<Loader />}>
-        <Categories />
-        <FeaturedSection1
-          currentContents={currentContents}
-          featuredPager={featuredPager1}
-        />
-        <FeaturedSection2
-          featuredPagers={featuredPagers}
-          featuredPager={featuredPager2}
-        />
-        <Table publishedPagers={publishedPagers} heading={tableHeading} />
+      <Categories />
+      <FeaturedSection1
+        currentContents={currentContents}
+        featuredPager={featuredPager1}
+      />
+      <FeaturedSection2
+        featuredPagers={featuredPagers}
+        featuredPager={featuredPager2}
+      />
+      <Table publishedPagers={publishedPagers} heading={tableHeading} />
 
-        <PublishedCard
-          publishedPagers={publishedPagers}
-          heading={publishedCardHeading}
-        />
+      <PublishedCard
+        publishedPagers={publishedPagers}
+        heading={publishedCardHeading}
+      />
 
-        <CategoryTab publishedPagers={publishedPagers} />
-      </Suspense>
+      <CategoryTab publishedPagers={publishedPagers} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { HiEye, HiOutlineBookOpen } from "react-icons/hi";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { polygonToken1 } from "../../images";
@@ -8,12 +8,9 @@ import {
   provideContract,
 } from "../constants/ContentFetch";
 import { ethers } from "ethers";
-import { Modal, Loader } from "../components";
+import {PublishedCard,CategoryTab,HorizontalCard,Carousel, Modal, Loader } from "../components";
 
-const PublishedCard = lazy(() => import("../components/PublishedCard"));
-const CategoryTab = lazy(() => import("../components/CategoryTab"));
-const HorizontalCard = lazy(() => import("../components/HorizontalCard"));
-const Carousel = lazy(() => import("../components/Carousel"));
+
 
 const PublishedItem = () => {
   const { id } = useParams();
@@ -125,7 +122,7 @@ const PublishedItem = () => {
   }
   return (
     <>
-      <Suspense fallback={<Loader />}>
+      
         <HorizontalCard
           featuredPagers={featuredPagers}
           horizCardHeading={horizCardHeading}
@@ -211,7 +208,7 @@ const PublishedItem = () => {
           horizCardHeading={publishedCardHeading}
         />
         <CategoryTab publishedPagers={publishedPagers} />
-      </Suspense>
+      
     </>
   );
 };

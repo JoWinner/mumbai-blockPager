@@ -1,6 +1,6 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect} from "react";
 import { toast } from "react-toastify";
-import { Loader } from "../components";
+import { PublishedCard,Sidebar,UserProfile,Loader } from "../components";
 
 import {
   getUserStats,
@@ -11,9 +11,7 @@ import {
   getContents,
 } from "../constants/ContentFetch";
 
-const PublishedCard = lazy(() => import("../components/PublishedCard"));
-const Sidebar = lazy(() => import("../components/Sidebar"));
-const UserProfile = lazy(() => import("../components/UserProfile"));
+
 
 const UserDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -101,7 +99,7 @@ const UserDashboard = () => {
   }
   return (
     <div>
-      <Suspense fallback={<Loader />}>
+     
         <UserProfile profile={profile} pic={pic} />
 
         <div className="flex justify-center min-h-screen mb-60 ">
@@ -174,7 +172,7 @@ const UserDashboard = () => {
             </li>
           </ul>
         </div>
-      </Suspense>
+     
     </div>
   );
 };

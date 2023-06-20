@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import  { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { polygonToken1 } from "../../images";
 import {
@@ -9,7 +9,7 @@ import {
   HiMail,
 } from "react-icons/hi";
 import { ethers } from "ethers";
-import { Loader } from "../components";
+import { Loader, PublishedCard } from "../components";
 import { pagerLogo, banner } from "../../images/index";
 import {
   getContents,
@@ -17,7 +17,6 @@ import {
   signContract,
 } from "../constants/ContentFetch";
 
-const PublishedCard = lazy(() => import("../components/PublishedCard"));
 
 const CreatorPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -113,7 +112,6 @@ const CreatorPage = () => {
 
   return (
     <div>
-      <Suspense fallback={<Loader />}>
         <div className="  pb-8">
           <div className="w-full h-[300px]">
             {profile?.creatorPicture ? (
@@ -253,7 +251,7 @@ const CreatorPage = () => {
             </li>
           </ul>
         </div>
-      </Suspense>
+      
     </div>
   );
 };
