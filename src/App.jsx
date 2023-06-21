@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Navbar, Footer, Connect, ErrorFallback, Loader } from "./components";
+import { Navbar, Footer, Connect, ErrorFallback} from "./components";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   Home,

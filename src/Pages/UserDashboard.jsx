@@ -72,7 +72,7 @@ const UserDashboard = () => {
   }
 
   async function loadPagers() {
-    setIsLoading(true);
+    // setIsLoading(true);
     const data = await signContract.fetchPrivateContents();
     const contents = await getUserContents(data, setUserData);
     setPagers(contents);
@@ -80,7 +80,7 @@ const UserDashboard = () => {
   }
 
   async function loadPublished() {
-    setIsLoading(true);
+    // setIsLoading(true);
     const data = await signContract.fetchMyPublishedItems();
     const contents = await getUserContents(data, setUserData);
     setPublishedPagers(contents);
@@ -88,7 +88,7 @@ const UserDashboard = () => {
   }
 
   async function loadViewed() {
-    setIsLoading(true);
+    // setIsLoading(true);
     const data = await signContract.fetchPaidItems();
     const contents = await getContents(data, setUserData);
     setViewedPagers(contents);
