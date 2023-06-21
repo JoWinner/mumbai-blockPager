@@ -122,7 +122,7 @@ const PublishedItem = () => {
     return <Loader />;
   }
   return (
-    <>
+    <div>
       <HorizontalCard
         featuredPagers={featuredPagers}
         horizCardHeading={horizCardHeading}
@@ -208,7 +208,7 @@ const PublishedItem = () => {
         horizCardHeading={publishedCardHeading}
       />
       <CategoryTab publishedPagers={publishedPagers} />
-    </>
+    </div>
   );
 };
 
