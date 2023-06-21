@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 const FeaturedSection2 = ({
   featuredPagers,
   featuredPager,
-  scrollContainerRef,
 }) => {
   return (
     <div className="px-10 my-16 text-black grid grid-cols-12 gap-y-6 md:gap-4">
       <div className="flex flex-col justify-between col-span-12 py-2 space-y-8 md:space-y-10 md:col-span-5 lg:col-span-4 xl:col-span-3 md:h-[450px] h-[500px]">
         {/* Left Scroll */}
         <div
-          ref={scrollContainerRef}
+          
           className="flex flex-col md:space-y-5 xs:space-y-3 flex-no-wrap overflow-y-scroll scrolling-touch scroll-smooth custom-scroll"
         >
           {featuredPagers.map((content) => (
@@ -126,7 +125,7 @@ const FeaturedSection2 = ({
       {/* Right Scroll */}
       <div className=" py-1 col-span-12  lg:col-span-3  lg:block">
         <div
-          ref={scrollContainerRef}
+          
           className="flex flex-col text-white h-[500px] md:h-96 px-1 flex-no-wrap overflow-y-scroll scrolling-touch divide-y custom-scroll scroll-smooth space-y-2"
         >
           {featuredPagers.map((content) => (

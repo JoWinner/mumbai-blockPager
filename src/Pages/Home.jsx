@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { getContents, provideContract } from "../constants/ContentFetch";
 
 import {
@@ -21,33 +21,11 @@ const Home = () => {
   const [publishedPagers, setPublishedPagers] = useState([]);
   const tableHeading = "Top pagers from all categories";
   const publishedCardHeading = "Pagers to read today";
-  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
     loadData();
   }, []);
 
-useEffect(() => {
-  const options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1.0,
-  };
-
-  const observer = new IntersectionObserver(handleIntersection, options);
-  const scrollContainer = scrollContainerRef.current;
-
-  if (scrollContainer) {
-    observer.observe(scrollContainer);
-  }
-
-  return () => {
-    if (scrollContainer) {
-      observer.unobserve(scrollContainer);
-    }
-  };
-}, []);
-  
   async function loadData() {
     setIsLoading(true);
 
@@ -77,22 +55,6 @@ useEffect(() => {
     setIsLoading(false);
   }
 
-async function loadMoreContents() {
-  const startIndex = currentContents.length;
-  const endIndex = startIndex + 5;
-  const newContents = featuredPagers.slice(startIndex, endIndex);
-  const updatedCurrentContents = currentContents.concat(newContents);
-  setCurrentContents(updatedCurrentContents);
-}
-
-function handleIntersection(entries) {
-  const [entry] = entries;
-  if (entry.isIntersecting) {
-    loadMoreContents();
-  }
-}
-
-
   if (isLoading) {
     return <Loader />;
   }
@@ -107,7 +69,6 @@ function handleIntersection(entries) {
       <FeaturedSection2
         featuredPagers={featuredPagers}
         featuredPager={featuredPager2}
-        scrollContainerRef={scrollContainerRef}
       />
       <Table publishedPagers={publishedPagers} heading={tableHeading} />
 
