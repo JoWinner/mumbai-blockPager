@@ -11,10 +11,10 @@ export default defineConfig({
   },
   build: {
     target: "esnext", //browsers can handle the latest ES features
-    // manualChunks: (path) =>
-    //   path.split("/").reverse()[
-    //     path.split("/").reverse().indexOf("node_modules") - 1
-    //   ],
+    manualChunks: (path) =>
+      path.split("/").reverse()[
+        path.split("/").reverse().indexOf("node_modules") - 1
+      ],
   },
   resolve: {
     alias: {

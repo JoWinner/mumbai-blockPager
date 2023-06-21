@@ -85,7 +85,7 @@ const CreatorPage = () => {
   }
 
   async function loadViewed(creatorAddress) {
-    setIsLoading(true);
+    
     const data = await signContract.fetchPaidItems();
 
     let contents = await getContents(data, setUserData);
