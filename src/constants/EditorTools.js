@@ -5,7 +5,7 @@ import Table from "@editorjs/table";
 import NestedList from "@editorjs/nested-list";
 import Warning from "@editorjs/warning";
 import Code from "@editorjs/code";
-import LinkTool from "@editorjs/link";
+// import LinkTool from "@editorjs/link";
 import Raw from "@editorjs/raw";
 import Underline from "@editorjs/underline";
 import Paragraph from "editorjs-paragraph-with-alignment";
@@ -17,13 +17,18 @@ import InlineCode from "@editorjs/inline-code";
 // import Image from "@editorjs/image";
 import SimpleImage from "@editorjs/simple-image";
 import SimpleImg from "./simple-image";
+import SimpleLink from "./SimpleLink";
 import AnyButton from "editorjs-button";
 import DragDrop from "editorjs-drag-drop";
 import Undo from "editorjs-undo";
 import Alert from "editorjs-alert";
 import Tooltip from "editorjs-tooltip";
-// import Layout from "editorjs-layout";
+import * as EditorJSLayout from "editorjs-layout";
 import SocialPost from "editorjs-social-post-plugin";
+import * as EditorJSInlineStyle from "editorjs-style";
+import EditorJS from "@editorjs/editorjs";
+
+const editorJSConfig={};
 
 
 export const EditorTools = {
@@ -38,11 +43,98 @@ export const EditorTools = {
   },
   socialPost: { class: SocialPost, inlineToolbar: true },
 
-  linkTool: LinkTool,
-  // layout: {
-  //   class: Layout,
-  //   inlineToolbar: true,
-  // },
+  linkTool: {
+    class: SimpleLink,
+    inlineToolbar: true,
+  },
+  layout: {
+    class: EditorJSLayout.LayoutBlockTool,
+    config: {
+      EditorJS,
+      editorJSConfig,
+      enableLayoutEditing: false,
+      enableLayoutSaving: true,
+      initialData: {
+        itemContent: {
+          1: {
+            blocks: [],
+          },
+        },
+        layout: {
+          type: "container",
+          id: "",
+          className: "",
+          style: "border: 1px solid #f5f1f1;border-radius: 0.3rem; ",
+          children: [
+            {
+              type: "item",
+              id: "",
+              className: "",
+              style:
+                "border: 1px solid #d3dce6; display: inline-block;border-radius: 0.3rem;padding: 16px; ",
+              itemContentId: "1",
+            },
+          ],
+        },
+      },
+    },
+  },
+  twoColumns: {
+    class: EditorJSLayout.LayoutBlockTool,
+    config: {
+      EditorJS,
+      editorJSConfig:{},
+      enableLayoutEditing: false,
+      enableLayoutSaving: false,
+      initialData: {
+        itemContent: {
+          1: {
+            blocks: [],
+          },
+          2: {
+            blocks: [],
+          },
+        },
+        layout: {
+          type: "container",
+          id: "1",
+          className: "",
+          style:
+            "border: 1px solid #f5f1f1; display: flex; justify-content: space-around; padding: 16px; border-radius: 0.3rem;",
+          children: [
+            {
+              type: "item",
+              id: "2",
+              className: "",
+              style:
+                "border: 1px solid #d3dce6; padding: 8px; border-radius: 0.3rem;",
+              itemContentId: "1",
+            },
+            {
+              type: "item",
+              id: "3",
+              className: "",
+              style:
+                "border: 1px solid #d3dce6; padding: 8px; border-radius: 0.3rem;",
+              itemContentId: "2",
+            },
+          ],
+        },
+      },
+    },
+    shortcut: "CMD+2",
+    toolbox: {
+      icon: `
+              <svg xmlns='http://www.w3.org/2000/svg' width="16" height="16" viewBox='0 0 512 512'>
+                <rect x='128' y='128' width='336' height='336' rx='57' ry='57' fill='none' stroke='currentColor' stroke-linejoin='round' stroke-width='32'/>
+                <path d='M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'/>
+              </svg>
+            `,
+      title: "2 columns",
+    },
+  },
+  style: EditorJSInlineStyle.StyleInlineTool,
+
   alert: {
     class: Alert,
     inlineToolbar: true,
@@ -120,11 +212,6 @@ export const EditorTools = {
   AnyButton: {
     class: AnyButton,
     inlineToolbar: true,
-    // config: {
-    //   css: {
-    //     btnColor: "btn--blue",
-    //   },
-    // },
   },
   quote: { class: Quote, inlineToolbar: true },
   marker: { class: Marker, inlineToolbar: true },
@@ -132,23 +219,20 @@ export const EditorTools = {
   delimiter: { class: Delimiter, inlineToolbar: true },
   inlineCode: { class: InlineCode, inlineToolbar: true },
 
-  //TODO: Need to know that this "SimpleImage"
-  //TODO:originally allows image drag and drop
- image: {
+  // Need to know that this "SimpleImage"
+  //originally allows image drag and drop
+  image: {
     class: SimpleImage,
     inlineToolbar: true,
     config: {
       placeholder: "Drag and drop an image",
     },
   },
-  //FIXME: Settle on one of these two image //FIXME:classes becox they might cause problems with
-  //TODO: Know that this "Simpleimg" allows to paste img url
+
+  // Know that this "Simpleimg" allows to paste img url
   simpleimg: {
     class: SimpleImg,
     inlineToolbar: true,
-    config: {
-      placeholder: "Paste image URL",
-    },
   },
   //TODO: Need an endpoint server to upload images and attachments
   //   attaches: {

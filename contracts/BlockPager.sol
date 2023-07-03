@@ -31,6 +31,7 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
         bool hasPaid;
         bool isFeatured;
         uint256 createdAt;
+        uint256 maxReads;
     }
 
     struct UserAccount {
@@ -44,6 +45,8 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
         string pictureCID;
     }
 
+    uint256[] private _featuredTokenIds;
+    uint256[] private _publicTokenIds;
     mapping(uint256 => Content) private _contents;
 
     mapping(address => uint256[]) private _privateContentsOwnedByUser;
@@ -231,7 +234,7 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
     }
 
     function createPrivateContent(
-        string memory tokenURI
+        string memory tokenURI,  uint256 maxReads
     ) public payable nonReentrant returns (uint) {
         // require payment Personal content Fee
         require(msg.value == personalFee, "Insufficient balance");
@@ -240,6 +243,11 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
             bytes(_picture[msg.sender].pictureCID).length > 0,
             "Your Profile is incomplete"
         );
+
+  // Set default maxReads value if not provided by the user
+    if (maxReads == 0) {
+        maxReads = 6; // Set your desired default value here
+    }
 
         // increment token IDs
         _tokenIds.increment();
@@ -261,7 +269,8 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
             false,
             true,
             false,
-            block.timestamp
+            block.timestamp,
+            maxReads
         );
 
         // update mapping
@@ -302,8 +311,11 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
             true,
             false,
             false,
-            block.timestamp
+            block.timestamp,
+           0
         );
+
+        _publicTokenIds.push(tokenId);
 
         // update mapping
         _publicContentsOwnedByUser[msg.sender].push(tokenId);
@@ -342,8 +354,12 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
             true,
             false,
             true,
-            block.timestamp
+            block.timestamp,
+            0
         );
+
+        _publicTokenIds.push(tokenId);
+        _featuredTokenIds.push(tokenId);
 
         // update mapping
         _publicContentsOwnedByUser[msg.sender].push(tokenId);
@@ -380,79 +396,51 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
     }
 
     function fetchPrivateContents() public view returns (Content[] memory) {
-        uint256[] memory ownedTokens = _privateContentsOwnedByUser[msg.sender];
-        uint256 tokenCount = ownedTokens.length;
-
+        uint256 tokenCount = _privateContentsOwnedByUser[msg.sender].length;
         Content[] memory contents = new Content[](tokenCount);
+
         for (uint256 i = 0; i < tokenCount; i++) {
-            uint256 tokenId = ownedTokens[i];
-            Content storage content = _contents[tokenId];
-            contents[i] = content;
+            uint256 tokenId = _privateContentsOwnedByUser[msg.sender][i];
+            contents[i] = _contents[tokenId];
         }
 
         return contents;
     }
 
     function fetchMyPublishedItems() public view returns (Content[] memory) {
-        uint256[] memory ownedTokens = _publicContentsOwnedByUser[msg.sender];
-        uint256 tokenCount = ownedTokens.length;
-
+        uint256 tokenCount = _publicContentsOwnedByUser[msg.sender].length;
         Content[] memory contents = new Content[](tokenCount);
+
         for (uint256 i = 0; i < tokenCount; i++) {
-            uint256 tokenId = ownedTokens[i];
-            Content storage content = _contents[tokenId];
-            if (content.creator == msg.sender) {
-                contents[i] = content;
-            }
+            uint256 tokenId = _publicContentsOwnedByUser[msg.sender][i];
+            contents[i] = _contents[tokenId];
         }
 
         return contents;
     }
 
     function fetchFeaturedItems() public view returns (Content[] memory) {
-        uint256[] memory allTokens = new uint256[](totalSupply());
-        uint256 tokenCount = 0;
-
-        for (uint256 i = 0; i < totalSupply(); i++) {
-            Content storage content = _contents[i + 1];
-            if (content.isFeatured) {
-                allTokens[tokenCount] = i + 1;
-                tokenCount++;
-            }
-        }
-
+        uint256 tokenCount = _featuredTokenIds.length;
         Content[] memory contents = new Content[](tokenCount);
+
         for (uint256 i = 0; i < tokenCount; i++) {
-            uint256 tokenId = allTokens[i];
-            Content storage content = _contents[tokenId];
-            contents[i] = content;
+            uint256 tokenId = _featuredTokenIds[i];
+            contents[i] = _contents[tokenId];
         }
 
         return contents;
     }
 
     function fetchAllContents() public view returns (Content[] memory) {
-        uint256 tokenCount = 0;
+        uint256 tokenCount = _publicTokenIds.length;
+        Content[] memory publicContents = new Content[](tokenCount);
 
-        for (uint256 i = 0; i < totalSupply(); i++) {
-            Content storage content = _contents[i + 1];
-            if (content.isPublic || content.isFeatured) {
-                tokenCount++;
-            }
+        for (uint256 i = 0; i < tokenCount; i++) {
+            uint256 tokenId = _publicTokenIds[i];
+            publicContents[i] = _contents[tokenId];
         }
 
-        Content[] memory contents = new Content[](tokenCount);
-        uint256 index = 0;
-
-        for (uint256 i = 0; i < totalSupply(); i++) {
-            Content storage content = _contents[i + 1];
-            if (content.isPublic || content.isFeatured) {
-                contents[index] = content;
-                index++;
-            }
-        }
-
-        return contents;
+        return publicContents;
     }
 
     function fetchPaidItems() public view returns (Content[] memory) {
@@ -575,22 +563,20 @@ contract BlockPager is ERC721URIStorage, ReentrancyGuard {
         emit ContentTransferred(msg.sender, receiver, tokenId);
     }
 
-    function readContent(
-        uint256 tokenId
-    ) public nonReentrant returns (Content memory) {
+    function readContent(uint256 tokenId) public nonReentrant returns (Content memory) {
         Content storage content = _contents[tokenId];
 
         require(
             ownerOf(tokenId) == msg.sender,
             "Only owner can read this pager"
         );
-        require(content.numReads < 7, "Maximum(6) reads reached");
+        require(content.numReads < content.maxReads, "Maximum reads reached");
 
         content.numReads += 1;
 
         emit ContentRead(tokenId);
 
-        if (content.numReads == 6) {
+        if (content.numReads == content.maxReads) {
             uint256[] storage ownerTokens = _privateContentsOwnedByUser[
                 msg.sender
             ];

@@ -39,6 +39,7 @@
     "editorjs-paragraph-with-alignment": "^3.0.0",
     "editorjs-parser": "^1.5.3",
     "editorjs-social-post-plugin": "^1.0.0",
+    "editorjs-style": "^3.0.3",
     "editorjs-undo": "^2.0.18",
     "process": "^0.11.10",
     "prop-types": "^15.8.1",

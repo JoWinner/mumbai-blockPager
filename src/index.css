@@ -24,6 +24,57 @@ h6.ce-header {
   @apply text-base font-semibold;
 }
 
+.link-field,
+.text-field {
+  width: 70%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.link-label,
+.text-label{
+  color: #8492a6;
+}
+
+.link-field:focus,
+.text-field:focus {
+  outline: none;
+  border-color: #456aef;
+}
+.link-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link-wrapper button.add-link {
+  width: fit-content;
+  padding: 6px 10px;
+  background-color: #456aef;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+  border-radius: 0.375rem;
+}
+
+.link-inserted {
+  color: #2546bd;
+  text-decoration: none;
+}
+
+
+
+
+
 body {
   padding: 0;
   margin: 0;

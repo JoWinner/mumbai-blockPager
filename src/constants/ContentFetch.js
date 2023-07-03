@@ -27,7 +27,7 @@ export const formatNumViews = (numViews) => {
 
 export const provider = new ethers.providers.JsonRpcProvider(
   import.meta.env.VITE_ALCHEMY_MUMBAI_URL
-
+  // import.meta.env.VITE_ALCHEMY_MAINNET_URL
   // import.meta.env.VITE_LOCALHOST_URL
 );
 
@@ -187,13 +187,13 @@ export const getUserContents = async (data, setUserData) => {
         description: meta.data.description,
         numReads: i.numReads.toNumber(),
         numTransfers: i.numTransfers.toNumber(),
+        maxReads: i.maxReads.toNumber(),
         title: meta.data.title,
         category: meta.data.category,
         editorData: meta.data.editorData,
         date: formattedDate,
         tokenUri,
       };
-
       return content;
     });
 

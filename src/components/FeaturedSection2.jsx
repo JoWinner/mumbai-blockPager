@@ -2,21 +2,17 @@ import { HiEye } from "react-icons/hi";
 import { polygonToken1 } from "../../images";
 import { Link } from "react-router-dom";
 
-const FeaturedSection2 = ({
-  featuredPagers,
-  featuredPager,
-}) => {
+const FeaturedSection2 = ({ featuredPagers, featuredPager }) => {
+
+
   return (
     <div className="px-10 my-16 text-black grid grid-cols-12 gap-y-6 md:gap-4">
       <div className="flex flex-col justify-between col-span-12 py-2 space-y-8 md:space-y-10 md:col-span-5 lg:col-span-4 xl:col-span-3 md:h-[450px] h-[500px]">
         {/* Left Scroll */}
-        <div
-          
-          className="flex flex-col md:space-y-5 xs:space-y-3 flex-no-wrap overflow-y-scroll scrolling-touch scroll-smooth custom-scroll"
-        >
+        <div className="flex flex-col md:space-y-5 xs:space-y-3 flex-no-wrap overflow-y-scroll scrolling-touch scroll-smooth custom-scroll">
           {featuredPagers.map((content) => (
             <div
-              className="flex flex-col rounded-md bg-white shadow-lg space-y-2 px-1 pb-2"
+              className="flex flex-col rounded-md bg-white shadow-lg space-y-2  pb-2"
               key={content?.id}
             >
               <div className="flex flex-row justify-between p-2 items-center bg-gradient-to-br from-slate-900 via-slate-900 to-black text-gray-light">
@@ -84,7 +80,6 @@ const FeaturedSection2 = ({
           </span>
         </div>
       </div>
-
       {/* Banner with link */}
       <Link
         to={`/published-item/${featuredPager.id}/${encodeURIComponent(
@@ -121,13 +116,9 @@ const FeaturedSection2 = ({
           </div>
         </div>
       </Link>
-
       {/* Right Scroll */}
       <div className=" py-1 col-span-12  lg:col-span-3  lg:block">
-        <div
-          
-          className="flex flex-col text-white h-[500px] md:h-96 px-1 flex-no-wrap overflow-y-scroll scrolling-touch divide-y custom-scroll scroll-smooth space-y-2"
-        >
+        <div className="flex flex-col text-white h-[500px] md:h-96 px-1 flex-no-wrap overflow-y-scroll scrolling-touch divide-y custom-scroll scroll-smooth space-y-2">
           {featuredPagers.map((content) => (
             <div
               className="flex bg-gradient-to-br from-slate-900 via-slate-900 to-black px-1 py-3"

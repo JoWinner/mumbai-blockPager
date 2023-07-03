@@ -57,7 +57,7 @@ const PrivateEditor = () => {
       const editor = new EditorJS({
         holder: "editorjs",
         tools: EditorTools,
-        placeholder: "Create something private in this pager!",
+        placeholder: "Create and transfer private content on the blockchain!",
 
         data: {
           version: "2.18.0",
@@ -71,6 +71,8 @@ const PrivateEditor = () => {
   }, []);
 
   async function uploadToIPFS() {
+        validateForm();
+
     const { title, maxReads } = formInput;
     if (!editorRef.current || !title || !maxReads) return;
 
@@ -88,10 +90,11 @@ const PrivateEditor = () => {
   }
 
   async function createPager() {
+    // Validate form input
+    validateForm(); 
+    
     const { title, maxReads } = formInput;
 
-    // Validate form input
-    validateForm();
 
     // Check if the form is valid
     if (Object.keys(formErrors).length === 0) {
@@ -112,7 +115,7 @@ const PrivateEditor = () => {
         navigate("/user-dashboard");
       } catch (error) {
         const errorMessage =
-          "Failed to create Pager. Your profile is incomplete." || error.reason;
+          "Failed to create Pager." || error.reason;
         toast.error(errorMessage);
       }
     }

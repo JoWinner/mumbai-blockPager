@@ -1,1 +1,1 @@
-export const blockPagerAddress = "0xd39C1453e9c137Dd77C5cd84F6Efb40222eBCD30"
+export const blockPagerAddress = "0x4C1C1c2BcD95F0A925e2fB7EA0AD91797d3109Bd"

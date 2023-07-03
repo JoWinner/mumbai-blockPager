@@ -90,7 +90,7 @@ const CategoryTab = ({ publishedPagers }) => {
                         <img
                           src={polygonToken1}
                           className="w-4 md:w-5"
-                          alt={content.title}
+                          alt={content?.title}
                         />
                         {content?.price}
                       </span>
