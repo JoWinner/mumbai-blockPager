@@ -15,16 +15,8 @@ const ErrorFallback = ({ resetErrorBoundary }) => {
           Something went wrong:
         </h1>
         <h3 className="my-10 text-xl text-black font-semibold">
-          There seems to be an error, reload or go back
-          <span
-            onClick={goHome}
-            className="underline font-bold text-gray-light cursor-pointer mx-1"
-          >
-            home
-          </span>
-          !
+          There seems to be an error, reload or go back home !
         </h3>
-        {/* <span className="loader"></span> */}
         <button
           type="button"
           onClick={resetErrorBoundary}
