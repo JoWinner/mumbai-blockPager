@@ -44,7 +44,7 @@ const UserDashboard = () => {
       });
     } catch (error) {
       const errorMessage =
-        error.reason || "Please complete your account with a profile!";
+        "Please update your account with a profile!" || error.reason;
       setProfile({
         ...profile,
         bio: (

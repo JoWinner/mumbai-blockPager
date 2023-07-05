@@ -245,7 +245,7 @@ const PublicEditor = () => {
                 withBorder: false,
                 withBackground: false,
               },
-              type: "simpleImage",
+              type: "simpleimg",
             },
             {
               id: "qvlrLvgUAO",

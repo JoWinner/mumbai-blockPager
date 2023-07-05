@@ -118,18 +118,10 @@ const Navbar = () => {
                 className="focus:bg-gray-light cursor-pointer flex px-20 lg:px-0 py-2 lg:py-0  hover:bg-gray-light lg:hover:text-gray transition-all duration-500 lg:hover:bg-transparent"
                 onClick={toggleMenu}
               >
-                Buy dApp
+               On Testnet(Mumbai)
               </Link>
             </li>
-            <li>
-              <Link
-                to="/"
-                className="focus:bg-gray-light cursor-pointer flex px-20 lg:px-0 py-2 lg:py-0  hover:bg-gray-light lg:hover:text-gray transition-all duration-500 lg:hover:bg-transparent"
-                onClick={toggleMenu}
-              >
-                Support
-              </Link>
-            </li>
+            
 
             {walletAddress && walletAddress === ownerAddress && (
               <li>
