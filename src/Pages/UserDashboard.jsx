@@ -63,7 +63,7 @@ const UserDashboard = () => {
       setPic({ picture });
     } catch (error) {
       const errorMessage =
-        error.reason || "Please add an image to your profile!";
+        "Please add an image to your profile!" || error.reason;
       toast.error(errorMessage);
     }
   }
