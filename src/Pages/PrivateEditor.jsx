@@ -103,19 +103,21 @@ const PrivateEditor = () => {
       try {
         let fee = await signContract.getFees();
         let personalFee = fee[0].toString();
-        let transaction = await signContract.createPrivateContent(
-          url,
-          maxReads,
-          {
+        let transaction = toast.promise(
+          signContract.createPrivateContent(url, maxReads, {
             value: personalFee,
+          }),
+          {
+            pending: "Processing transaction...",
+            success: "Transaction signed!",
           }
         );
-        await transaction.wait();
+        await transaction;
 
         navigate("/user-dashboard");
       } catch (error) {
         const errorMessage =
-          "Failed to create Pager." || error.reason;
+          "Failed to create pager." || error.reason;
         toast.error(errorMessage);
       }
     }

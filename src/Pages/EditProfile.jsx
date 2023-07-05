@@ -87,8 +87,14 @@ const EditProfile = () => {
       const url = await uploadToIPFS();
 
       try {
-        let transaction = await signContract.createOrUpdateAccount(url);
-        await transaction.wait();
+        let transaction = toast.promise(
+          signContract.createOrUpdateAccount(url),
+          {
+            pending: "Processing transaction...",
+            success: "Transaction signed!",
+          }
+        );
+        await transaction;
 
         navigate("/user-dashboard");
       } catch (error) {
@@ -137,12 +143,16 @@ const EditProfile = () => {
 
     try {
 
-      let transaction = await signContract.updatePicture(url);
-      await transaction.wait();
+      let transaction = toast.promise(signContract.updatePicture(url), {
+        pending: "Processing transaction...",
+        success: "Transaction signed!",
+      });
+      await transaction;
+
       navigate("/user-dashboard");
     } catch (error) {
       const errorMessage =
-        "Account doesn't exist Or Error updating picture" || error.reason;
+        "Error updating image" || error.reason;
       toast.error(errorMessage);
     }
   }

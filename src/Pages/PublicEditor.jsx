@@ -28,7 +28,7 @@ const PublicEditor = () => {
   const editorRef = useRef(null);
   const isEditorReady = useRef(false);
   const navigate = useNavigate();
-    const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const [formErrors, setFormErrors] = useState({});
   const [fileUrl, setFileUrl] = useState(null);
@@ -332,18 +332,24 @@ const PublicEditor = () => {
       try {
         /* next, create the item */
         const price = ethers.utils.parseUnits(formInput.price, "ether");
-       
+
         let fee = await signContract.getFees();
         let featuredFee = fee[1].toString();
-        let transaction = await signContract.createFeaturedItem(url, price, {
-          value: featuredFee,
-        });
-        await transaction.wait();
+    
+        let transaction = toast.promise(
+          signContract.createFeaturedItem(url, price, {
+            value: featuredFee,
+          }),
+          {
+            pending: "Processing transaction...",
+            success: "Transaction signed!",
+          }
+        );
+        await transaction;
 
         navigate("/user-dashboard");
       } catch (error) {
-        const errorMessage =
-          "Failed to create Pager." || error.reason;
+        const errorMessage = "Failed to create pager." || error.reason;
         toast.error(errorMessage);
       }
     }
@@ -358,18 +364,23 @@ const PublicEditor = () => {
     // Check if the form is valid
     if (Object.keys(formErrors).length === 0) {
       const url = await uploadToIPFS();
-      
+
       try {
         /* next, create the item */
-        const price = ethers.utils.parseUnits(formInput.price, "ether");    
+        const price = ethers.utils.parseUnits(formInput.price, "ether");
 
-        let transaction = await signContract.createPublicItem(url, price);
-        await transaction.wait();
+        let transaction = toast.promise(
+          signContract.createPublicItem(url, price),
+          {
+            pending: "Processing transaction...",
+            success: "Transaction signed!",
+          }
+        );
+        await transaction;
 
         navigate("/user-dashboard");
       } catch (error) {
-        const errorMessage =
-          "Failed to create Pager." || error.reason;
+        const errorMessage = "Failed to create pager." || error.reason;
         toast.error(errorMessage);
       }
     }
@@ -386,7 +397,6 @@ const PublicEditor = () => {
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
-
 
   return (
     <div className="mx-auto xs:w-11/12 md:w-5/6 min-h-full">

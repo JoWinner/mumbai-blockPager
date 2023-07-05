@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <App />
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         rtl={false}
         pauseOnFocusLoss
         draggable
+        limit={3}
         pauseOnHover
         theme="dark"
       />
